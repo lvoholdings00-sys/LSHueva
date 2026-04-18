@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Menu — La Super Hueva Taqueria · Houston, TX</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Permanent+Marker&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --black:      #07080a;
+      --dark:       #0d0f14;
+      --navy:       #111420;
+      --neon-pink:  #ff2d78;
+      --neon-purple:#c030ff;
+      --neon-gold:  #ffc400;
+      --neon-teal:  #00e5c8;
+      --white:      #f5f0e8;
+      --gray:       #888;
+      --gray-lt:    #bbb;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+    a { text-decoration: none; transition: all 0.2s; }
+
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* TICKER */
+    .ticker-wrap { background: var(--neon-pink); overflow: hidden; white-space: nowrap; padding: 0.4rem 0; position: relative; z-index: 10; }
+    .ticker-track { display: inline-block; animation: ticker 30s linear infinite; }
+    .ticker-track span { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; margin: 0 2rem; }
+    .ticker-track span::before { content: '★  '; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* HEADER */
+    header { position: sticky; top: 0; z-index: 100; background: rgba(7,8,10,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,45,120,0.2); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .logo-wrap { display: flex; flex-direction: column; line-height: 1; }
+    .logo-top { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--neon-pink); }
+    .logo-main { font-family: 'Permanent Marker', cursive; font-size: 1.55rem; background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 8px rgba(255,45,120,0.45)); }
+    nav ul { display: flex; list-style: none; gap: 0.2rem; align-items: center; }
+    nav ul a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-lt); padding: 0.4rem 0.85rem; border-radius: 4px; }
+    nav ul a:hover, nav ul a.active { color: var(--neon-pink); }
+    .nav-cta { background: var(--neon-pink) !important; color: #fff !important; border-radius: 4px !important; }
+    .nav-cta:hover { background: #ff5599 !important; }
+    .menu-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 0.4rem; }
+    .menu-toggle span { display: block; width: 24px; height: 2px; background: var(--neon-pink); border-radius: 2px; }
+
+    /* PAGE HERO */
+    .page-hero {
+      position: relative;
+      background: linear-gradient(135deg, #07080a 0%, #110816 50%, #0a0f0a 100%);
+      padding: 5rem 2rem 4rem; text-align: center; z-index: 1;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 60%, rgba(255,45,120,0.1) 0%, transparent 65%);
+    }
+    .breadcrumb { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(245,240,232,0.35); margin-bottom: 1rem; position: relative; }
+    .breadcrumb a { color: var(--neon-pink); }
+    .page-hero h1 { font-family: 'Permanent Marker', cursive; font-size: clamp(3rem, 9vw, 6rem); color: var(--white); margin-bottom: 0.5rem; position: relative; }
+    .page-hero h1 span { background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 20px rgba(255,45,120,0.5)); }
+    .page-hero p { font-size: 1rem; color: rgba(245,240,232,0.52); max-width: 420px; margin: 0 auto; position: relative; }
+
+    /* MENU LAYOUT */
+    .menu-page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+
+    /* CATEGORY LABEL */
+    .category-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; margin-top: 3.5rem; }
+    .category-header:first-child { margin-top: 0; }
+    .cat-emoji { font-size: 2rem; }
+    .cat-title { font-family: 'Permanent Marker', cursive; font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--white); }
+    .cat-title span { color: var(--neon-gold); filter: drop-shadow(0 0 8px rgba(255,196,0,0.4)); }
+    .cat-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(255,45,120,0.4), transparent); }
+
+    /* MENU ITEMS GRID */
+    .items-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 0.5rem; }
+    .menu-item {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .menu-item::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--neon-pink), var(--neon-purple)); opacity: 0; transition: opacity 0.25s; }
+    .menu-item:hover { background: rgba(255,45,120,0.05); border-color: rgba(255,45,120,0.2); transform: translateX(4px); }
+    .menu-item:hover::before { opacity: 1; }
+    .item-emoji { font-size: 2rem; flex-shrink: 0; line-height: 1; margin-top: 0.1rem; }
+    .item-info { flex: 1; }
+    .item-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.25rem; text-transform: uppercase; }
+    .item-desc { font-size: 0.83rem; color: rgba(245,240,232,0.45); line-height: 1.5; }
+    .item-note { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--neon-gold); background: rgba(255,196,0,0.1); border: 1px solid rgba(255,196,0,0.25); border-radius: 3px; padding: 0.15rem 0.45rem; margin-top: 0.5rem; }
+
+    /* PHOTO SLOT in menu */
+    .photo-slot {
+      border-radius: 8px; overflow: hidden; position: relative;
+      background: rgba(255,255,255,0.025);
+      border: 1px dashed rgba(255,45,120,0.25);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.4rem; min-height: 180px;
+    }
+    .photo-slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 7px; }
+    .photo-icon { font-size: 1.6rem; opacity: 0.25; }
+    .photo-text { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.25); text-align: center; padding: 0 1rem; }
+    .photo-badge { position: absolute; bottom: 0.5rem; left: 0.5rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); color: var(--neon-pink); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 3px; border: 1px solid rgba(255,45,120,0.3); }
+
+    /* ITEMS + PHOTO LAYOUT */
+    .section-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 1.5rem; margin-bottom: 0.5rem; align-items: start; }
+    .section-layout .items-grid { grid-template-columns: 1fr; }
+
+    /* CARNE SECTION */
+    .carnes-section { background: linear-gradient(135deg, #0d0f14, #100914); border-radius: 12px; padding: 2.5rem; margin: 3rem 0; border: 1px solid rgba(192,48,255,0.18); }
+    .carnes-section h2 { font-family: 'Permanent Marker', cursive; font-size: 2rem; color: var(--white); margin-bottom: 0.35rem; }
+    .carnes-section h2 span { color: var(--neon-pink); }
+    .carnes-section p { color: rgba(245,240,232,0.48); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .carne-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+    .carne-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,45,120,0.18); border-radius: 8px; padding: 1rem; text-align: center; transition: all 0.2s; cursor: default; }
+    .carne-item:hover { border-color: var(--neon-pink); background: rgba(255,45,120,0.07); }
+    .carne-item .ci-emoji { font-size: 1.6rem; display: block; margin-bottom: 0.35rem; }
+    .carne-item .ci-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white); }
+
+    /* AGUAS */
+    .aguas-section { background: linear-gradient(135deg, #060d0d, #091310); border-radius: 12px; padding: 2.5rem; margin: 2rem 0; border: 1px solid rgba(0,229,200,0.18); }
+    .aguas-section h2 { font-family: 'Boogaloo', sans-serif; font-size: 2.2rem; color: var(--neon-teal); filter: drop-shadow(0 0 10px rgba(0,229,200,0.4)); margin-bottom: 0.35rem; }
+    .aguas-section p { color: rgba(245,240,232,0.48); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .agua-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .agua-item { background: rgba(0,229,200,0.04); border: 1px solid rgba(0,229,200,0.18); border-radius: 8px; padding: 1rem 1.25rem; transition: all 0.2s; }
+    .agua-item:hover { border-color: var(--neon-teal); background: rgba(0,229,200,0.08); }
+    .agua-item .ai-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--neon-teal); }
+    .agua-item .ai-note { font-size: 0.78rem; color: rgba(245,240,232,0.4); margin-top: 0.15rem; }
+
+    /* CTA BOTTOM */
+    .menu-cta { background: var(--neon-pink); border-radius: 10px; padding: 2.5rem; text-align: center; margin-top: 3rem; }
+    .menu-cta h3 { font-family: 'Permanent Marker', cursive; font-size: 2rem; color: #fff; margin-bottom: 0.4rem; }
+    .menu-cta p { color: rgba(255,255,255,0.75); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.85rem 2rem; border-radius: 4px; transition: all 0.25s; display: inline-block; cursor: pointer; border: none; }
+    .btn-dark { background: var(--black); color: var(--white); }
+    .btn-dark:hover { background: #222; transform: translateY(-2px); color: var(--white); }
+    .btn-ghost-light { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.5); }
+    .btn-ghost-light:hover { border-color: #fff; background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--navy); border-top: 1px solid rgba(255,45,120,0.14); padding: 2.5rem 2rem; position: relative; z-index: 1; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; align-items: center; }
+    .footer-logo p { font-size: 0.8rem; color: var(--gray); margin-top: 0.25rem; }
+    .footer-links { display: flex; flex-direction: column; gap: 0.4rem; }
+    .footer-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); }
+    .footer-links a:hover { color: var(--neon-pink); }
+    .footer-right { text-align: right; }
+    .footer-right a { font-size: 0.9rem; color: var(--neon-pink); font-weight: 600; }
+    .footer-copy { font-size: 0.72rem; color: rgba(136,136,136,0.45); margin-top: 0.4rem; }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .menu-toggle { display: flex; }
+      nav { display: none; width: 100%; }
+      nav.open { display: block; position: absolute; top: 100%; left: 0; right: 0; background: var(--dark); border-top: 1px solid rgba(255,45,120,0.2); padding: 1rem; }
+      nav.open ul { flex-direction: column; }
+      nav.open ul a { display: block; padding: 0.65rem 1rem; }
+      .header-inner { position: relative; flex-wrap: wrap; }
+      .section-layout { grid-template-columns: 1fr; }
+      .items-grid { grid-template-columns: 1fr; }
+      .carne-grid { grid-template-columns: repeat(2, 1fr); }
+      .agua-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-right { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ticker-wrap" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Tacos</span><span>Tortas</span><span>Quesadillas</span><span>Burritos</span><span>Machetes</span><span>Sincronizadas</span><span>Gorditas</span><span>Gringa</span><span>Aguas Frescas</span><span>Hamburguesas</span><span>Hawaianas</span>
+      <span>Tacos</span><span>Tortas</span><span>Quesadillas</span><span>Burritos</span><span>Machetes</span><span>Sincronizadas</span><span>Gorditas</span><span>Gringa</span><span>Aguas Frescas</span><span>Hamburguesas</span><span>Hawaianas</span>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <span class="logo-top">Taqueria</span>
+        <span class="logo-main">La Super Hueva</span>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="mainNav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html" class="active">Menu</a></li>
+          <li><a href="contact.html">Find Us</a></li>
+          <li><a href="tel:8324900108" class="nav-cta">📞 Order Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <p class="breadcrumb"><a href="index.html">Home</a> / Menu</p>
+    <h1>Our <span>Menu</span></h1>
+    <p>Made fresh on the truck, every night. Order by the plate or pile it up.</p>
+  </section>
+
+  <main class="menu-page">
+
+    <!-- MACHETES & TACOS -->
+    <div class="reveal">
+      <div class="category-header">
+        <span class="cat-emoji">🔪</span>
+        <h2 class="cat-title">Machetes <span>&</span> Tacos</h2>
+        <div class="cat-line"></div>
+      </div>
+      <div class="section-layout">
+        <div class="items-grid">
+          <div class="menu-item">
+            <span class="item-emoji">🔪</span>
+            <div class="item-info">
+              <div class="item-name">Machetes</div>
+              <p class="item-desc">Crispy oversized tortilla loaded with cheese and your choice of carne. La Super's signature item.</p>
+              <span class="item-note">⭐ Most Popular</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <span class="item-emoji">🌮</span>
+            <div class="item-info">
+              <div class="item-name">Tacos</div>
+              <p class="item-desc">Fresh corn tortillas, your choice of carne, onion, cilantro, and salsa.</p>
+            </div>
+          </div>
+          <div class="menu-item">
+            <span class="item-emoji">🍳</span>
+            <div class="item-info">
+              <div class="item-name">Quesadillas</div>
+              <p class="item-desc">Melted cheese on a flour tortilla, stuffed with your choice of meat.</p>
+            </div>
+          </div>
+        </div>
+        <!-- ============================================================
+             MACHETES PHOTO
+             Replace  MENU-MACHETE.jpg  with your actual filename.
+        ============================================================ -->
+        <div class="photo-slot" style="min-height:280px;">
+          <img src="MENU-MACHETE.jpg" alt="Machetes" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7px;"/>
+          <span class="photo-icon">🔪</span>
+          <span class="photo-text">Replace MENU-MACHETE.jpg<br/>with a machete/taco photo</span>
+          <span class="photo-badge">Machetes</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TORTAS & SANDWICHES -->
+    <div class="reveal">
+      <div class="category-header">
+        <span class="cat-emoji">🥙</span>
+        <h2 class="cat-title">Tortas <span>&</span> Gringa</h2>
+        <div class="cat-line"></div>
+      </div>
+      <div class="section-layout">
+        <!-- ============================================================
+             TORTAS PHOTO
+             Replace  MENU-TORTA.jpg  with your actual filename.
+        ============================================================ -->
+        <div class="photo-slot" style="min-height:260px;">
+          <img src="MENU-TORTA.jpg" alt="Torta" onerror="this.style.display='none'" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:7px;"/>
+          <span class="photo-icon">🥙</span>
+          <span class="photo-text">Replace MENU-TORTA.jpg<br/>with a torta photo</span>
+          <span class="photo-badge">Tortas</span>
+        </div>
+        <div class="items-grid">
+          <div class="menu-item">
+            <span class="item-emoji">🥙</span>
+            <div class="item-info">
+              <div class="item-name">Tortas</div>
+              <p class="item-desc">Mexican sandwich on a bolillo bun — piled high with your choice of carne, avocado, jalapeños, and toppings.</p>
+            </div>
+          </div>
+          <div class="menu-item">
+            <span class="item-emoji">🫓</span>
+            <div class="item-info">
+              <div class="item-name">Gringa</div>
+              <p class="item-desc">Flour tortilla with al pastor, melted cheese, and pineapple. Sweet, savory, perfect.</p>
+              <span class="item-note">🌮 Fan Favorite</span>
+            </div>
+          </div>
+          <div class="menu-item">
+            <span class="item-emoji">🍔</span>
+            <div class="item-info">
+              <div class="item-name">Hamburguesas</div>
+              <p class="item-desc">Houston-style burger with all the fixings. Done the La Super way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BURRITOS, GORDITAS, SINCRONIZADAS -->
+    <div class="reveal">
+      <div class="category-header">
+        <span class="cat-emoji">🌯</span>
+        <h2 class="cat-title">Burritos <span>&</span> More</h2>
+        <div class="cat-line"></div>
+      </div>
+      <div class="items-grid" style="margin-bottom:1.5rem;">
+        <div class="menu-item">
+          <span class="item-emoji">🌯</span>
+          <div class="item-info">
+            <div class="item-name">Burritos</div>
+            <p class="item-desc">Giant flour tortilla rolled with rice, beans, carne, sour cream, and all the good stuff.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <span class="item-emoji">🫔</span>
+          <div class="item-info">
+            <div class="item-name">Gorditas</div>
+            <p class="item-desc">Thick masa pocket stuffed with carne, cheese, and salsa. Crispy on the outside, juicy inside.</p>
+            <span class="item-note">⭐ Late Night Fave</span>
+          </div>
+        </div>
+        <div class="menu-item">
+          <span class="item-emoji">🫓</span>
+          <div class="item-info">
+            <div class="item-name">Sincronizadas</div>
+            <p class="item-desc">Two flour tortillas pressed together with ham, cheese, and carne. Melty and golden.</p>
+          </div>
+        </div>
+        <div class="menu-item">
+          <span class="item-emoji">🍍</span>
+          <div class="item-info">
+            <div class="item-name">Hawaianas</div>
+            <p class="item-desc">Tropical twist on the classic — sweet pineapple with savory carne and cheese.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARNES -->
+    <div class="carnes-section reveal">
+      <h2>Choose Your <span>Carne</span></h2>
+      <p>Every item above can be made with any of our fresh meats — cooked to order on the truck.</p>
+      <div class="carne-grid">
+        <div class="carne-item"><span class="ci-emoji">🥩</span><div class="ci-name">Fajita</div></div>
+        <div class="carne-item"><span class="ci-emoji">🍗</span><div class="ci-name">Pollo</div></div>
+        <div class="carne-item"><span class="ci-emoji">🌀</span><div class="ci-name">Al Pastor</div></div>
+        <div class="carne-item"><span class="ci-emoji">🌭</span><div class="ci-name">Chorizo</div></div>
+        <div class="carne-item"><span class="ci-emoji">🐷</span><div class="ci-name">Chicharrón</div></div>
+        <div class="carne-item"><span class="ci-emoji">🫀</span><div class="ci-name">Tripa</div></div>
+        <div class="carne-item"><span class="ci-emoji">🌽</span><div class="ci-name">Campechano</div></div>
+        <div class="carne-item"><span class="ci-emoji">🥩</span><div class="ci-name">Barbacoa</div></div>
+      </div>
+    </div>
+
+    <!-- AGUAS FRESCAS -->
+    <div class="aguas-section reveal">
+      <h2>Aguas Frescas 🍹</h2>
+      <p>Homemade fresh-fruit waters. Cold, sweet, and made right.</p>
+      <div class="agua-grid">
+        <div class="agua-item"><div class="ai-name">Horchata</div><div class="ai-note">Sweet rice milk with cinnamon</div></div>
+        <div class="agua-item"><div class="ai-name">Jamaica</div><div class="ai-note">Hibiscus flower, slightly tart</div></div>
+        <div class="agua-item"><div class="ai-name">Tamarindo</div><div class="ai-note">Tangy tamarind goodness</div></div>
+        <div class="agua-item"><div class="ai-name">Limonada</div><div class="ai-note">Fresh squeezed limeade</div></div>
+        <div class="agua-item"><div class="ai-name">Seasonal</div><div class="ai-note">Ask us what's fresh tonight</div></div>
+        <div class="agua-item"><div class="ai-name">More</div><div class="ai-note">Ask us what we have tonight</div></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="menu-cta reveal">
+      <h3>Ready to Order?</h3>
+      <p>Come find the truck or call ahead. We're rolling out tonight.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-dark">📍 Find the Truck</a>
+        <a href="tel:8324900108" class="btn btn-ghost-light">📞 (832) 490-0108</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="logo-wrap">
+          <span class="logo-top">Taqueria</span>
+          <span class="logo-main">La Super Hueva</span>
+        </div>
+        <p>Houston's late-night taqueria.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Full Menu</a>
+        <a href="contact.html">Find the Truck</a>
+      </div>
+      <div class="footer-right">
+        <a href="tel:8324900108">(832) 490-0108</a>
+        <p class="footer-copy">© 2026 La Super Hueva · Houston, TX · All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const nav = document.getElementById('mainNav');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => obs.observe(r));
+  </script>
+</body>
+</html>
